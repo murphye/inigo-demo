@@ -1,6 +1,6 @@
 # Inigo Apollo Router Kubernetes Demo
 
-This project demonstrates how to use Inigo with Apollo Router which is deployed onto Kubernetes using Helm.
+This project demonstrates how to use Inigo with Apollo Router which is deployed onto Kubernetes using Helm. Apollo's sample `starstuff.graphql` supergraph schema is used for the demo.
 
 This project uses the following:
 
