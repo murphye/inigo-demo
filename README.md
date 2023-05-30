@@ -17,7 +17,7 @@ In the Inigo dashboard, you must setup an Apollo Router and copy the Inigo token
 
 ## 2. Add your Inigo Token to `values.yaml`
 
-```
+```yaml
     plugins:
       inigo.middleware:
         token: "ey...
@@ -28,14 +28,14 @@ In the Inigo dashboard, you must setup an Apollo Router and copy the Inigo token
 [k3d](https://k3d.io) allows  you to run Kubernetes on your local machine.
 
 
-```
+```shell
 k3d cluster create inigo -p "8080:80@loadbalancer" -p "8443:443@loadbalancer"
 ```
 
 ## 4. Install Apollo Router (Inigo Build)
 
 
-```
+```shell
 helm install --create-namespace --namespace apollo-router apollo-router oci://ghcr.io/apollographql/helm-charts/router  --set-file supergraphFile="starstuff.graphql" --values values.yaml
 ```
 
@@ -43,7 +43,7 @@ helm install --create-namespace --namespace apollo-router apollo-router oci://gh
 
 Make sure the pod is running and ready
 
-```
+```shell
 kubectl get pods -n apollo-router
 ```
 
@@ -51,7 +51,7 @@ kubectl get pods -n apollo-router
 
 Use `curl` to execute a GraphQL query against the `starstuff.graphql` supergraph schema. 
 
-```
+```shell
 query='query myTopProducts {
   me {
     name
@@ -94,22 +94,19 @@ Find the queries for `myTopProducts` in the Inigo Dashboard.
 
 ![Request Data](images/query-analytics.png)
 
-## 7. 
+## 7. Apply Max Depth
+
+The sample query (in the `curl` command above) has a max depth of 4. What if you want to restrict to a max depth of 3? This is possible by applying the following config.
 
 
-
-
-## 
-
-Update Apollo Router
-
-```
-helm upgrade apollo-router oci://ghcr.io/apollographql/helm-charts/router --namespace apollo-router --set-file supergraphFile="starstuff.graphql" --values values.yaml
+```shell
+inigo apply inigo/security.yaml
 ```
 
 
-Uninstall Apollo Router
+## 8. Apply Rate Limit
 
+```shell
+inigo apply inigo/rate-limit.yaml
 ```
-helm uninstall apollo-router --namespace apollo-router
-```
+

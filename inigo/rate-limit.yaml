@@ -1,0 +1,10 @@
+kind: RateLimit
+name: apollo-router
+label: starstuff
+spec:
+  profiles:
+    - name: starstuff
+      calls:
+        - path: query.topProducts
+          allowance: 5
+          period: 10m

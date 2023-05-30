@@ -1,0 +1,9 @@
+kind: Security
+name: apollo-router
+label: starstuff
+spec:
+  profiles:
+    - name: starstuff
+      require_operation_name: true
+      max_depth: 3
+      max_height: 10
