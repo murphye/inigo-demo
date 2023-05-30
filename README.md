@@ -32,7 +32,7 @@ In the Inigo dashboard, you must setup an Apollo Router and copy the Inigo token
 k3d cluster create inigo -p "8080:80@loadbalancer" -p "8443:443@loadbalancer"
 ```
 
-## 4. Install Apollo Router (Inigo Build)
+## 4. Install Apollo Router (Includes Inigo)
 
 
 ```shell
