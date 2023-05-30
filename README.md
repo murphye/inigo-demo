@@ -88,8 +88,28 @@ date: Tue, 30 May 2023 02:39:56 GMT
 {"data":{"me":{"name":"Ada Lovelace"},"topProducts":[{"name":"Table","price":899,"reviews":[{"author":{"name":"Ada Lovelace"},"body":"Love it!"},{"author":{"name":"Alan Turing"},"body":"Prefer something else."}]},{"name":"Couch","price":1299,"reviews":[{"author":{"name":"Ada Lovelace"},"body":"Too expensive."}]},{"name":"Chair","price":54,"reviews":[{"author":{"name":"Alan Turing"},"body":"Could be better."}]}]}}
 ```
 
-## Check Inigo for GraphQL Query Data
+## 6. Check Inigo for GraphQL Query Data
 
 Find the queries for `myTopProducts` in the Inigo Dashboard.
 
-![Request Data](images/analytics-myTopProducts.png)
+![Request Data](images/query-analytics.png)
+
+## 7. 
+
+
+
+
+## 
+
+Update Apollo Router
+
+```
+helm upgrade apollo-router oci://ghcr.io/apollographql/helm-charts/router --namespace apollo-router --set-file supergraphFile="starstuff.graphql" --values values.yaml
+```
+
+
+Uninstall Apollo Router
+
+```
+helm uninstall apollo-router --namespace apollo-router
+```
