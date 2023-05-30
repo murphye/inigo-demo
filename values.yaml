@@ -1,0 +1,47 @@
+router:
+  configuration:
+    supergraph:
+      listen: 0.0.0.0:80
+    health_check:
+      listen: 0.0.0.0:8088
+    telemetry:
+      metrics:
+        prometheus:
+          enabled: true
+          listen: 0.0.0.0:9090
+          path: "/metrics"
+    plugins:
+      inigo.middleware:
+        token: "ey..."
+
+image:
+  repository: inigohub/inigo_apollo_router
+  tag: latest
+
+service:
+  type: LoadBalancer
+
+ingress:
+  enabled: true
+  hosts:
+    - host: apollo-router.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+# The remaining configs are a workaround for using a local supergraph schema, see:
+# https://github.com/apollographql/router/issues/2491#issuecomment-1431334725
+
+extraEnvVars:
+  - name: APOLLO_ROUTER_SUPERGRAPH_PATH
+    value: /etc/apollo/supergraph-schema.graphql
+
+extraVolumeMounts:
+  - name: supergraph
+    mountPath: /etc/apollo/supergraph-schema.graphql
+    subPath: supergraph-schema.graphql
+
+extraVolumes:
+   - name: supergraph
+     configMap:
+       name: apollo-router-supergraph
