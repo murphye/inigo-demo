@@ -110,3 +110,75 @@ inigo apply inigo/security.yaml
 inigo apply inigo/rate-limit.yaml
 ```
 
+
+
+## 9. Fine Grain Access Control
+
+inigo delete rate_limit apollo-router:starstuff
+inigo delete security apollo-router:starstuff
+
+
+```
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzE2MjM5MDIzLCJ1c2VyX3Byb2ZpbGUiOiJzdGFyc3R1ZmYiLCJ1c2VyX3JvbGVzIjpbInN0YXJzdHVmZiJdfQ.xk7jqibv9qlw8F26kAu9CezvtxXeEf_oGGjpNyhIROE
+```
+
+```shell
+query='query myTopProducts {
+  topProducts {
+    reviews {
+        author {
+            name
+        }
+        body
+    }
+    name
+    price
+  }
+  
+}'
+variables='{}'
+curl -i -X POST http://localhost:8080 \
+  -H 'Host: apollo-router.local' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzE2MjM5MDIzLCJ1c2VyX3Byb2ZpbGUiOiJzdGFyc3R1ZmYiLCJ1c2VyX3JvbGVzIjpbInN0YXJzdHVmZiJdfQ.xk7jqibv9qlw8F26kAu9CezvtxXeEf_oGGjpNyhIROE' \
+  -d @- <<EOF
+      {"query": "$(echo $query)", "variables": $variables}
+EOF
+```
+
+
+query='query myTopProducts {  
+  me {
+    name
+  }
+  topProducts {
+    name,
+    price,
+    reviews {
+        author {
+            name
+        }
+        body
+    }
+  }
+}'
+variables='{}'
+curl -i -X POST http://localhost:8080 \
+  -H 'Host: apollo-router.local' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzE2MjM5MDIzLCJ1c2VyX3Byb2ZpbGUiOiJzdGFyc3R1ZmYiLCJ1c2VyX3JvbGVzIjpbInN0YXJzdHVmZiJdfQ.xk7jqibv9qlw8F26kAu9CezvtxXeEf_oGGjpNyhIROE' \
+  -d @- <<EOF
+
+
+
+
+
+
+
+
+
+
+
+
+
+helm upgrade --namespace apollo-router apollo-router oci://ghcr.io/apollographql/helm-charts/router  --set-file supergraphFile="starstuff.graphql" --values values.yaml

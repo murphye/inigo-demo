@@ -1,0 +1,8 @@
+kind: Service
+name: apollo-router
+label: starstuff
+spec:
+  anonymous_profile: guest
+  anonymous_roles: [guest]
+  path_user_profile: jwt.user_profile
+  path_user_role: jwt.user_roles

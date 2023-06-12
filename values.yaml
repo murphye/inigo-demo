@@ -12,7 +12,13 @@ router:
           path: "/metrics"
     plugins:
       inigo.middleware:
-        token: "ey..."
+        token: ""
+
+extraEnvVars:
+  - name: INIGO_LOG_LEVEL
+    value: debug
+  - name: INIGO_SERVICE_SUBSCRIPTION_ENABLED
+    value: true
 
 image:
   repository: inigohub/inigo_apollo_router

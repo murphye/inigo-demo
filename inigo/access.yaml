@@ -1,0 +1,10 @@
+kind: Access
+name: apollo-router
+label: starstuff
+spec:
+  profiles:
+    - name: starstuff
+  roles:
+    - name: starstuff
+      full_access: false
+      allowed_operations: ["allowed_operations.graphql"]

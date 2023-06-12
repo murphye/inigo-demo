@@ -1,0 +1,12 @@
+query {
+  topProducts {
+    name,
+    price,
+    reviews {
+        author {
+            name
+        }
+        body
+    }
+  }
+}
