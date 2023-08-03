@@ -15,6 +15,6 @@ jobs:
 
       - name: CLI login
         env:
-          INIGO_USERNAME: ${{ secrets.inigo.INIGO_USERNAME }}
-          INIGO_PASSWORD: ${{ secrets.inigo.INIGO_PASSWORD }}
+          INIGO_USERNAME: ${{ secrets.INIGO_USERNAME }}
+          INIGO_PASSWORD: ${{ secrets.INIGO_PASSWORD }}
         run: ./inigo login
